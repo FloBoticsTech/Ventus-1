@@ -92,7 +92,7 @@ class App(tk.Frame):
         self.bt_login=tk.Button(self.master,text='  Humidity ',command=self.Humid_load)
         self.bt_login.place(x=500,y=700)
         localtime = time.time()
-        print ("本地时间为 :", localtime)
+        print ("Local Time :", localtime)
 
         #plt.xlabel('Coordinate_X')
         #plt.ylabel('Coordinate_Y')
