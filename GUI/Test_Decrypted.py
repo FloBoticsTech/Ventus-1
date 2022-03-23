@@ -22,13 +22,13 @@ de_msg = decrypt_message(iv, key, en_msg)
 print(de_msg)
 
 #part2
-iv = "CC581687C248553B".encode()
+iv = b'7280336e1f644015'
 print(iv)
 msg = b'123456789012'
 en_msg = encrypt_message(iv, key, msg)
 print(en_msg)
 print(len(en_msg))
-data = b'f9df77da6ce340eaf3cd399c'
+data = b'110694b7b6204d4aeaa5fb06'
 de_data = (binascii.unhexlify(data))
 de_data = decrypt_message(iv, key, de_data)
 print(de_data)
