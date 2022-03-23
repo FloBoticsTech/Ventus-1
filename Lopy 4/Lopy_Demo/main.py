@@ -22,7 +22,8 @@ while(1):
             break
     input = uart.read(uart.any()).decode()
     print('MSG:',input) # read up to 5 bytes
-    print('MSG(HEX):',binascii.hexlify(input)
+    print('MSG(HEX):',binascii.hexlify(input))
+    msg = binascii.unhexlify(input)
     send(msg, s);
     pycom.rgbled(0x00FF00)  # Green
     time.sleep(2)
