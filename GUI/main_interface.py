@@ -9,6 +9,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 import seaborn as sns
+import binascii
+
  
 
 
@@ -61,7 +63,11 @@ class App(tk.Frame):
 
         #with open("./Sigfox_4D76AD/Sigfox_4D76AD_data_time.json", 'w+') as f:
         #    json.dump(a, f)
-
+        def two2dec(s):
+            if s[0] == '1':
+                return -1 * (int(''.join('1' if x == '0' else '0' for x in s), 2) + 1)
+            else:
+                return int(s, 2)
         device = "2A0D6F8"
         print()
         response = requests.get("https://api.sigfox.com/v2/devices/" + device + "/messages", auth=authentication).json()
@@ -77,7 +83,29 @@ class App(tk.Frame):
                 if data == "ffffffffffffffffffffffff":
                     break
                 time = response[i]['time']
-                a[time] = data
+                t = {}
+                t['time'] = time
+                print(t)
+                t['Coordinate_x'] = data[:2]
+                t['Coordinate_y'] = data[2:4]
+                temp_1 = data[4:6]
+                temp_2 = data[6:8]
+                t['Temperature'] = int(temp_1, 16) + 0.01 * int(temp_2, 16)
+                Hum_1 = data[8:10]
+                Hum_2 = data[10:12]
+                print(t)
+                t['Humidity'] = int(Hum_1, 16) + 0.01 * int(Hum_2, 16)
+                airx_1 = two2dec(binascii.unhexlify(data[12:14]))
+                airx_2 = data[14:16]
+                t['Airflow_X'] = airx_1 + 0.01 * int(airx_2, 16)
+                airy_1 = two2dec(binascii.unhexlify(data[16:18]))
+                airy_2 = data[18:20]
+                t['Airflow_Y'] = airy_1 + 0.01 * int(airy_2, 16)
+                airz_1 = two2dec(binascii.unhexlify(data[20:22]))
+                airz_2 = data[22:24]
+                t['Airflow_Z'] = airz_1 + 0.01 * int(airz_2, 16)
+                print(t)
+                a[i] = t
                 #a[i].append(data)
                 i += 1
             except:
