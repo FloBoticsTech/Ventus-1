@@ -12,9 +12,16 @@ cipher = AES(key, AES.MODE_CTR, counter=counter)
 temp = 0xFFFFFFFFFFFF
 #print(int(temp, 2))
 msg = binascii.unhexlify('FFFFFFFFFFFFFFFFFFFFFFFF')
+msg_new = 'Howdy'
+en_msg = cipher.encrypt(msg_new)
 print(msg)
 print(ubinascii.hexlify(msg))
 print(len(msg))
+print(en_msg)
+new = ubinascii.hexlify(en_msg)
+print(new)
+print(binascii.unhexlify(new))
 
 s = init();
-send(msg, s);
+#send(msg, s);
+#send(en_msg, s);

@@ -68,6 +68,7 @@ class App(tk.Frame):
                 return -1 * (int(''.join('1' if x == '0' else '0' for x in s), 2) + 1)
             else:
                 return int(s, 2)
+
         device = "2A0D6F8"
         print()
         response = requests.get("https://api.sigfox.com/v2/devices/" + device + "/messages", auth=authentication).json()
@@ -93,10 +94,11 @@ class App(tk.Frame):
                 t['Temperature'] = int(temp_1, 16) + 0.01 * int(temp_2, 16)
                 Hum_1 = data[8:10]
                 Hum_2 = data[10:12]
-                print(t)
                 t['Humidity'] = int(Hum_1, 16) + 0.01 * int(Hum_2, 16)
+                print(t)
                 airx_1 = two2dec(binascii.unhexlify(data[12:14]))
                 airx_2 = data[14:16]
+                print(airx_1)
                 t['Airflow_X'] = airx_1 + 0.01 * int(airx_2, 16)
                 airy_1 = two2dec(binascii.unhexlify(data[16:18]))
                 airy_2 = data[18:20]

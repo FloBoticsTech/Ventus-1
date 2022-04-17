@@ -22,11 +22,11 @@ while(1):
             break
     input = uart.read(uart.any()).decode()
     print('MSG:',input) # read up to 5 bytes
-    print('MSG(HEX):',binascii.hexlify(sigfox.pac()))
+    #print('MSG(HEX):',binascii.hexlify(input))
     try:
         msg = binascii.unhexlify(input)
         key = b'notsuchsecretkey' # 128 bit (16 bytes) key
-        counter = crypto.getrandbits(128) # hardware generated random IV (never reuse it)
+        counter = "CC581687C248553B".encode() # hardware generated random IV (never reuse it)
         cipher = AES(key, AES.MODE_CTR, counter=counter)
         msg = cipher.encrypt(msg)
         print('Encrypted:',msg)

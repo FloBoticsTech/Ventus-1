@@ -1,12 +1,17 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import time
- 
+import json
+
+
 localtime = time.time()
 print ("本地时间为 :", localtime)
 
 #plt.xlabel('Coordinate_X')
 #plt.ylabel('Coordinate_Y')
+with open("./Sigfox_2A0D6F8/Sigfox_2A0D6F8.json", 'r') as f:
+    data = json.load(f)
+print(data)
  
 X, Y = np.meshgrid(np.arange(0, 2 * np.pi, .2), np.arange(0, 2 * np.pi, .2))
 U, V = np.cos(X), np.sin(Y)
