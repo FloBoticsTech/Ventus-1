@@ -33,6 +33,7 @@ while(1):
         print('Encrypted(HEX):',binascii.hexlify(msg))
         send(msg, s);
         pycom.rgbled(0x00FF00)  # Green
+        uart.write('SENT')   # write the 3 characters
         time.sleep(2)
 
     except:
